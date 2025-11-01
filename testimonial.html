@@ -38,19 +38,22 @@
             </button>
             <div class="collapse navbar-collapse justify-content-between" id="navbarCollapse">
                 <div class="navbar-nav ml-auto p-4">
-                    <a href="index.html" class="nav-item nav-link">Home</a>
-                    <a href="about.html" class="nav-item nav-link">About</a>
-                    <a href="service.html" class="nav-item nav-link">Service</a>
-                    <a href="menu.html" class="nav-item nav-link">Menu</a>
+                    <a href="index.html" class="nav-item nav-link" data-translate="navHome">Home</a>
+                    <a href="about.html" class="nav-item nav-link" data-translate="navAbout">About</a>
+                    <a href="service.html" class="nav-item nav-link" data-translate="navService">Service</a>
+                    <a href="menu.html" class="nav-item nav-link" data-translate="navMenu">Menu</a>
                     <div class="nav-item dropdown">
-                        <a href="#" class="nav-link dropdown-toggle active" data-toggle="dropdown">Pages</a>
+                        <a href="#" class="nav-link dropdown-toggle active" data-toggle="dropdown" data-translate="navPages">Pages</a>
                         <div class="dropdown-menu text-capitalize">
-                            <a href="reservation.html" class="dropdown-item">Reservation</a>
-                            <a href="testimonial.html" class="dropdown-item active">Testimonial</a>
+                            <a href="reservation.html" class="dropdown-item" data-translate="navReservation">Reservation</a>
+                            <a href="testimonial.html" class="dropdown-item active" data-translate="navTestimonial">Testimonial</a>
                         </div>
                     </div>
-                    <a href="contact.html" class="nav-item nav-link">Contact</a>
+                    <a href="contact.html" class="nav-item nav-link" data-translate="navContact">Contact</a>
                 </div>
+                <button id="langToggle" class="btn btn-primary ml-3" style="border-radius: 25px; padding: 8px 20px;">
+                    <i class="fa fa-language mr-2"></i><span id="langText">RO</span>
+                </button>
             </div>
         </nav>
     </div>
@@ -60,11 +63,11 @@
     <!-- Page Header Start -->
     <div class="container-fluid page-header mb-5 position-relative overlay-bottom">
         <div class="d-flex flex-column align-items-center justify-content-center pt-0 pt-lg-5" style="min-height: 400px">
-            <h1 class="display-4 mb-3 mt-0 mt-lg-5 text-white text-uppercase">Testimonial</h1>
+            <h1 class="display-4 mb-3 mt-0 mt-lg-5 text-white text-uppercase" data-translate="pageTestimonialTitle">Testimonial</h1>
             <div class="d-inline-flex mb-lg-5">
-                <p class="m-0 text-white"><a class="text-white" href="">Home</a></p>
+                <p class="m-0 text-white"><a class="text-white" href="" data-translate="navHome">Home</a></p>
                 <p class="m-0 text-white px-2">/</p>
-                <p class="m-0 text-white">Testimonial</p>
+                <p class="m-0 text-white" data-translate="pageTestimonialTitle">Testimonial</p>
             </div>
         </div>
     </div>
@@ -75,49 +78,49 @@
     <div class="container-fluid py-5">
         <div class="container">
             <div class="section-title">
-                <h4 class="text-primary text-uppercase" style="letter-spacing: 5px;">Testimonial</h4>
-                <h1 class="display-4">Our Clients Say</h1>
+                <h4 class="text-primary text-uppercase" style="letter-spacing: 5px;" data-translate="testimonialTitle">Testimonial</h4>
+                <h1 class="display-4" data-translate="testimonialHeading">Our Clients Say</h1>
             </div>
             <div class="owl-carousel testimonial-carousel">
                 <div class="testimonial-item">
                     <div class="d-flex align-items-center mb-3">
                         <img class="img-fluid" src="img/testimonial-1.jpg" alt="">
                         <div class="ml-3">
-                            <h4>Client Name</h4>
-                            <i>Profession</i>
+                            <h4 data-translate="client1Name">Sarah Mitchell</h4>
+                            <i data-translate="client1Prof">Software Engineer</i>
                         </div>
                     </div>
-                    <p class="m-0">Sed ea amet kasd elitr stet, stet rebum et ipsum est duo elitr eirmod clita lorem. Dolor tempor ipsum sanct clita</p>
+                    <p class="m-0" data-translate="client1Quote">Coffee Tales is my second home! I've been coming here for 3 years to work remotely. The WiFi is fast, the coffee is incredible, and Maria always remembers my order. Best café in the city!</p>
                 </div>
                 <div class="testimonial-item">
                     <div class="d-flex align-items-center mb-3">
                         <img class="img-fluid" src="img/testimonial-2.jpg" alt="">
                         <div class="ml-3">
-                            <h4>Client Name</h4>
-                            <i>Profession</i>
+                            <h4 data-translate="client2Name">James Rodriguez</h4>
+                            <i data-translate="client2Prof">College Student</i>
                         </div>
                     </div>
-                    <p class="m-0">Sed ea amet kasd elitr stet, stet rebum et ipsum est duo elitr eirmod clita lorem. Dolor tempor ipsum sanct clita</p>
+                    <p class="m-0" data-translate="client2Quote">Perfect study spot! Great atmosphere, amazing pastries, and the staff is super friendly. I've aced so many exams thanks to the peaceful vibes here. Plus, the student discount is awesome!</p>
                 </div>
                 <div class="testimonial-item">
                     <div class="d-flex align-items-center mb-3">
                         <img class="img-fluid" src="img/testimonial-3.jpg" alt="">
                         <div class="ml-3">
-                            <h4>Client Name</h4>
-                            <i>Profession</i>
+                            <h4 data-translate="client3Name">Emily Chen</h4>
+                            <i data-translate="client3Prof">Marketing Director</i>
                         </div>
                     </div>
-                    <p class="m-0">Sed ea amet kasd elitr stet, stet rebum et ipsum est duo elitr eirmod clita lorem. Dolor tempor ipsum sanct clita</p>
+                    <p class="m-0" data-translate="client3Quote">I host all my client meetings here. The private event space is perfect, the coffee impresses everyone, and the service is impeccable. Coffee Tales makes me look good every time!</p>
                 </div>
                 <div class="testimonial-item">
                     <div class="d-flex align-items-center mb-3">
                         <img class="img-fluid" src="img/testimonial-4.jpg" alt="">
                         <div class="ml-3">
-                            <h4>Client Name</h4>
-                            <i>Profession</i>
+                            <h4 data-translate="client4Name">Michael Brown</h4>
+                            <i data-translate="client4Prof">Local Artist</i>
                         </div>
                     </div>
-                    <p class="m-0">Sed ea amet kasd elitr stet, stet rebum et ipsum est duo elitr eirmod clita lorem. Dolor tempor ipsum sanct clita</p>
+                    <p class="m-0" data-translate="client4Quote">This place supported me when I was a struggling artist. They displayed my paintings, and now I sell them worldwide! The community here is incredible. Coffee Tales changed my life.</p>
                 </div>
             </div>
         </div>
@@ -130,9 +133,9 @@
         <div class="row mx-0 pt-5 px-sm-3 px-lg-5 mt-4">
             <div class="col-lg-3 col-md-6 mb-5">
                 <h4 class="text-white text-uppercase mb-4" style="letter-spacing: 3px;">Get In Touch</h4>
-                <p><i class="fa fa-map-marker-alt mr-2"></i>123 Street, New York, USA</p>
+                <p><i class="fa fa-map-marker-alt mr-2"></i>Strada Scolii 11, Brasov</p>
                 <p><i class="fa fa-phone-alt mr-2"></i>+012 345 67890</p>
-                <p class="m-0"><i class="fa fa-envelope mr-2"></i>info@example.com</p>
+                <p class="m-0"><i class="fa fa-envelope mr-2"></i>coffee.tales.caffe@gmail.com</p>
             </div>
             <div class="col-lg-3 col-md-6 mb-5">
                 <h4 class="text-white text-uppercase mb-4" style="letter-spacing: 3px;">Follow Us</h4>
@@ -166,10 +169,6 @@
                 </div>
             </div>
         </div>
-        <div class="container-fluid text-center text-white border-top mt-4 py-4 px-sm-3 px-md-5" style="border-color: rgba(256, 256, 256, .1) !important;">
-            <p class="mb-2 text-white">Copyright &copy; <a class="font-weight-bold" href="#">Domain</a>. All Rights Reserved.</a></p>
-            <p class="m-0 text-white">Designed by <a class="font-weight-bold" href="https://htmlcodex.com">HTML Codex</a> Distributed by <a href="https://themewagon.com" target="_blank">ThemeWagon</a></a></p>
-        </div>
     </div>
     <!-- Footer End -->
 
@@ -194,6 +193,9 @@
 
     <!-- Template Javascript -->
     <script src="js/main.js"></script>
+    
+    <!-- Language Toggle -->
+    <script src="js/language-toggle.js"></script>
 </body>
 
 </html>

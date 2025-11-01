@@ -24,6 +24,16 @@
 
     <!-- Customized Bootstrap Stylesheet -->
     <link href="css/style.min.css" rel="stylesheet">
+    
+    <!-- Custom Menu Image Styling -->
+    <style>
+        .menu-item-img {
+            width: 100%;
+            height: 120px;
+            object-fit: cover;
+            object-position: center;
+        }
+    </style>
 </head>
 
 <body>
@@ -51,6 +61,9 @@
                     </div>
                     <a href="contact.html" class="nav-item nav-link">Contact</a>
                 </div>
+                <button id="langToggle" class="btn btn-primary ml-3" style="border-radius: 25px; padding: 8px 20px;">
+                    <i class="fa fa-language mr-2"></i><span id="langText">RO</span>
+                </button>
             </div>
         </nav>
     </div>
@@ -60,11 +73,11 @@
     <!-- Page Header Start -->
     <div class="container-fluid page-header mb-5 position-relative overlay-bottom">
         <div class="d-flex flex-column align-items-center justify-content-center pt-0 pt-lg-5" style="min-height: 400px">
-            <h1 class="display-4 mb-3 mt-0 mt-lg-5 text-white text-uppercase">Menu</h1>
+            <h1 class="display-4 mb-3 mt-0 mt-lg-5 text-white text-uppercase" data-translate="pageTitle">Menu</h1>
             <div class="d-inline-flex mb-lg-5">
                 <p class="m-0 text-white"><a class="text-white" href="">Home</a></p>
                 <p class="m-0 text-white px-2">/</p>
-                <p class="m-0 text-white">Menu</p>
+                <p class="m-0 text-white" data-translate="pageTitle">Menu</p>
             </div>
         </div>
     </div>
@@ -76,73 +89,243 @@
         <div class="container">
             <div class="section-title">
                 <h4 class="text-primary text-uppercase" style="letter-spacing: 5px;">Menu & Pricing</h4>
-                <h1 class="display-4">Competitive Pricing</h1>
+                <h1 class="display-4">Our Signature Drinks</h1>
             </div>
             <div class="row">
                 <div class="col-lg-6">
-                    <h1 class="mb-5">Hot Coffee</h1>
+                    <h1 class="mb-5" data-translate="hotCoffee">Hot Coffee</h1>
                     <div class="row align-items-center mb-5">
                         <div class="col-4 col-sm-3">
-                            <img class="w-100 rounded-circle mb-3 mb-sm-0" src="img/menu-1.jpg" alt="">
-                            <h5 class="menu-price">$5</h5>
+                            <img class="w-100 rounded-circle mb-3 mb-sm-0 menu-item-img" src="https://images.unsplash.com/photo-1579992357154-faf4bde95b3d?w=400" alt="Espresso">
+                            <h5 class="menu-price">$3.50</h5>
                         </div>
                         <div class="col-8 col-sm-9">
-                            <h4>Black Coffee</h4>
-                            <p class="m-0">Sit lorem ipsum et diam elitr est dolor sed duo guberg sea et et lorem dolor</p>
+                            <h4 data-translate="espresso">Classic Espresso</h4>
+                            <p class="m-0" data-translate="espressoDesc">Rich, bold shot of our signature espresso blend. Made from Maria's original Cuban recipe using freshly roasted beans.</p>
                         </div>
                     </div>
                     <div class="row align-items-center mb-5">
                         <div class="col-4 col-sm-3">
-                            <img class="w-100 rounded-circle mb-3 mb-sm-0" src="img/menu-2.jpg" alt="">
-                            <h5 class="menu-price">$7</h5>
+                            <img class="w-100 rounded-circle mb-3 mb-sm-0 menu-item-img" src="https://images.unsplash.com/photo-1534778101976-62847782c213?w=400" alt="Cappuccino">
+                            <h5 class="menu-price">$4.75</h5>
                         </div>
                         <div class="col-8 col-sm-9">
-                            <h4>Chocolete Coffee</h4>
-                            <p class="m-0">Sit lorem ipsum et diam elitr est dolor sed duo guberg sea et et lorem dolor</p>
+                            <h4 data-translate="cappuccino">Cappuccino</h4>
+                            <p class="m-0" data-translate="cappuccinoDesc">Perfect balance of espresso, steamed milk, and velvety foam. Topped with a dusting of cocoa powder.</p>
                         </div>
                     </div>
                     <div class="row align-items-center mb-5">
                         <div class="col-4 col-sm-3">
-                            <img class="w-100 rounded-circle mb-3 mb-sm-0" src="img/menu-3.jpg" alt="">
-                            <h5 class="menu-price">$9</h5>
+                            <img class="w-100 rounded-circle mb-3 mb-sm-0 menu-item-img" src="https://images.unsplash.com/photo-1570968915860-54d5c301fa9f?w=400" alt="Caramel Macchiato">
+                            <h5 class="menu-price">$5.25</h5>
                         </div>
                         <div class="col-8 col-sm-9">
-                            <h4>Coffee With Milk</h4>
-                            <p class="m-0">Sit lorem ipsum et diam elitr est dolor sed duo guberg sea et et lorem dolor</p>
+                            <h4 data-translate="caramelMacchiato">Caramel Macchiato</h4>
+                            <p class="m-0" data-translate="caramelMacchiatoDesc">Vanilla-flavored steamed milk with espresso shots, topped with caramel drizzle. A customer favorite since 2005.</p>
+                        </div>
+                    </div>
+                    <div class="row align-items-center mb-5">
+                        <div class="col-4 col-sm-3">
+                            <img class="w-100 rounded-circle mb-3 mb-sm-0 menu-item-img" src="https://images.unsplash.com/photo-1485808191679-5f86510681a2?w=400" alt="Café Latte">
+                            <h5 class="menu-price">$4.50</h5>
+                        </div>
+                        <div class="col-8 col-sm-9">
+                            <h4 data-translate="cafeLatte">Café Latte</h4>
+                            <p class="m-0" data-translate="cafeLatteDesc">Smooth espresso with steamed milk and a light layer of foam. Simple, elegant, and perfectly crafted.</p>
+                        </div>
+                    </div>
+                    <div class="row align-items-center mb-5">
+                        <div class="col-4 col-sm-3">
+                            <img class="w-100 rounded-circle mb-3 mb-sm-0 menu-item-img" src="https://images.unsplash.com/photo-1530373239216-42518e6b4063?w=400" alt="Mocha">
+                            <h5 class="menu-price">$5.50</h5>
+                        </div>
+                        <div class="col-8 col-sm-9">
+                            <h4 data-translate="mocha">Mocha Delight</h4>
+                            <p class="m-0" data-translate="mochaDesc">Rich espresso blended with premium dark chocolate and steamed milk. Topped with whipped cream and chocolate shavings.</p>
+                        </div>
+                    </div>
+                    <div class="row align-items-center mb-5">
+                        <div class="col-4 col-sm-3">
+                            <img class="w-100 rounded-circle mb-3 mb-sm-0 menu-item-img" src="https://images.unsplash.com/photo-1497515114629-f71d768fd07c?w=400" alt="Americano">
+                            <h5 class="menu-price">$3.25</h5>
+                        </div>
+                        <div class="col-8 col-sm-9">
+                            <h4 data-translate="americano">Americano</h4>
+                            <p class="m-0" data-translate="americanoDesc">Double shot of espresso diluted with hot water for a smooth, full-bodied coffee experience.</p>
                         </div>
                     </div>
                 </div>
                 <div class="col-lg-6">
-                    <h1 class="mb-5">Cold Coffee</h1>
+                    <h1 class="mb-5" data-translate="coldCoffee">Cold Coffee</h1>
                     <div class="row align-items-center mb-5">
                         <div class="col-4 col-sm-3">
-                            <img class="w-100 rounded-circle mb-3 mb-sm-0" src="img/menu-1.jpg" alt="">
-                            <h5 class="menu-price">$5</h5>
+                            <img class="w-100 rounded-circle mb-3 mb-sm-0 menu-item-img" src="https://images.unsplash.com/photo-1461023058943-07fcbe16d735?w=400" alt="Cold Brew">
+                            <h5 class="menu-price">$4.95</h5>
                         </div>
                         <div class="col-8 col-sm-9">
-                            <h4>Black Coffee</h4>
-                            <p class="m-0">Sit lorem ipsum et diam elitr est dolor sed duo guberg sea et et lorem dolor</p>
+                            <h4 data-translate="coldBrew">Cold Brew</h4>
+                            <p class="m-0" data-translate="coldBrewDesc">Smooth, naturally sweet coffee steeped for 16 hours. Served over ice with a splash of cream.</p>
                         </div>
                     </div>
                     <div class="row align-items-center mb-5">
                         <div class="col-4 col-sm-3">
-                            <img class="w-100 rounded-circle mb-3 mb-sm-0" src="img/menu-2.jpg" alt="">
-                            <h5 class="menu-price">$7</h5>
+                            <img class="w-100 rounded-circle mb-3 mb-sm-0 menu-item-img" src="https://images.unsplash.com/photo-1599639957043-f3aa5c986398?w=400" alt="Iced Caramel Latte">
+                            <h5 class="menu-price">$5.75</h5>
                         </div>
                         <div class="col-8 col-sm-9">
-                            <h4>Chocolete Coffee</h4>
-                            <p class="m-0">Sit lorem ipsum et diam elitr est dolor sed duo guberg sea et et lorem dolor</p>
+                            <h4 data-translate="icedCaramelLatte">Iced Caramel Latte</h4>
+                            <p class="m-0" data-translate="icedCaramelLatteDesc">Creamy iced latte with vanilla and caramel syrup, topped with whipped cream and caramel drizzle.</p>
                         </div>
                     </div>
                     <div class="row align-items-center mb-5">
                         <div class="col-4 col-sm-3">
-                            <img class="w-100 rounded-circle mb-3 mb-sm-0" src="img/menu-3.jpg" alt="">
-                            <h5 class="menu-price">$9</h5>
+                            <img class="w-100 rounded-circle mb-3 mb-sm-0 menu-item-img" src="https://images.unsplash.com/photo-1642647391072-6a2416f048e5?w=400" alt="Vanilla Iced Coffee">
+                            <h5 class="menu-price">$5.50</h5>
                         </div>
                         <div class="col-8 col-sm-9">
-                            <h4>Coffee With Milk</h4>
-                            <p class="m-0">Sit lorem ipsum et diam elitr est dolor sed duo guberg sea et et lorem dolor</p>
+                            <h4 data-translate="vanillaIcedCoffee">Vanilla Iced Coffee</h4>
+                            <p class="m-0" data-translate="vanillaIcedCoffeeDesc">Refreshing iced coffee sweetened with house-made vanilla syrup and topped with cold foam.</p>
                         </div>
+                    </div>
+                    <div class="row align-items-center mb-5">
+                        <div class="col-4 col-sm-3">
+                            <img class="w-100 rounded-circle mb-3 mb-sm-0 menu-item-img" src="https://images.unsplash.com/photo-1595981267035-7b04ca84a82d?w=400" alt="Nitro Cold Brew">
+                            <h5 class="menu-price">$6.25</h5>
+                        </div>
+                        <div class="col-8 col-sm-9">
+                            <h4 data-translate="nitroColdBrew">Nitro Cold Brew</h4>
+                            <p class="m-0" data-translate="nitroColdBrewDesc">Cold brew infused with nitrogen for a creamy, cascading effect. Smooth and naturally sweet without any additives.</p>
+                        </div>
+                    </div>
+                    <div class="row align-items-center mb-5">
+                        <div class="col-4 col-sm-3">
+                            <img class="w-100 rounded-circle mb-3 mb-sm-0 menu-item-img" src="https://images.unsplash.com/photo-1572490122747-3968b75cc699?w=400" alt="Iced Mocha">
+                            <h5 class="menu-price">$5.95</h5>
+                        </div>
+                        <div class="col-8 col-sm-9">
+                            <h4 data-translate="icedMocha">Iced Mocha</h4>
+                            <p class="m-0" data-translate="icedMochaDesc">Rich chocolate and espresso over ice with milk and whipped cream. A decadent treat for chocolate lovers.</p>
+                        </div>
+                    </div>
+                    <div class="row align-items-center mb-5">
+                        <div class="col-4 col-sm-3">
+                            <img class="w-100 rounded-circle mb-3 mb-sm-0 menu-item-img" src="https://images.unsplash.com/photo-1517487881594-2787fef5ebf7?w=400" alt="Iced Americano">
+                            <h5 class="menu-price">$4.50</h5>
+                        </div>
+                        <div class="col-8 col-sm-9">
+                            <h4 data-translate="icedAmericano">Iced Americano</h4>
+                            <p class="m-0" data-translate="icedAmericanoDesc">Bold espresso shots poured over ice and water. Simple, strong, and refreshing.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Specialty Drinks Section -->
+            <div class="row mt-5 pt-5">
+                <div class="col-12">
+                    <div class="section-title">
+                        <h4 class="text-primary text-uppercase" style="letter-spacing: 5px;" data-translate="specialtyDrinks">Specialty Drinks</h4>
+                        <h1 class="display-4" data-translate="seasonalSignature">Seasonal & Signature Creations</h1>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="row align-items-center mb-5">
+                        <div class="col-4 col-sm-3">
+                            <img class="w-100 rounded-circle mb-3 mb-sm-0 menu-item-img" src="https://images.unsplash.com/photo-1610889556528-9a770e32642f?w=400" alt="Cuban Coffee">
+                            <h5 class="menu-price">$6.50</h5>
+                        </div>
+                        <div class="col-8 col-sm-9">
+                            <h4 data-translate="cubanCoffee">Abuela's Cuban Coffee</h4>
+                            <p class="m-0" data-translate="cubanCoffeeDesc">Maria's grandmother's original recipe. Sweet, strong espresso whipped with sugar until it forms a creamy foam.</p>
+                        </div>
+                    </div>
+                    <div class="row align-items-center mb-5">
+                        <div class="col-4 col-sm-3">
+                            <img class="w-100 rounded-circle mb-3 mb-sm-0 menu-item-img" src="https://images.unsplash.com/photo-1506619216599-9d16d0903dfd?w=400" alt="Lavender Latte">
+                            <h5 class="menu-price">$5.95</h5>
+                        </div>
+                        <div class="col-8 col-sm-9">
+                            <h4 data-translate="lavenderLatte">Honey Lavender Latte</h4>
+                            <p class="m-0" data-translate="lavenderLatteDesc">Delicate lavender syrup and local honey blended with espresso and steamed milk. Calming and aromatic.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="row align-items-center mb-5">
+                        <div class="col-4 col-sm-3">
+                            <img class="w-100 rounded-circle mb-3 mb-sm-0 menu-item-img" src="https://images.unsplash.com/photo-1610632380989-680fe40816c6?w=400" alt="Maple Cinnamon Latte">
+                            <h5 class="menu-price">$6.25</h5>
+                        </div>
+                        <div class="col-8 col-sm-9">
+                            <h4 data-translate="mapleLatte">Maple Cinnamon Latte</h4>
+                            <p class="m-0" data-translate="mapleLatteDesc">Cozy autumn favorite with real maple syrup, cinnamon, and a hint of nutmeg. Perfect with our fresh pastries.</p>
+                        </div>
+                    </div>
+                    <div class="row align-items-center mb-5">
+                        <div class="col-4 col-sm-3">
+                            <img class="w-100 rounded-circle mb-3 mb-sm-0 menu-item-img" src="https://images.unsplash.com/photo-1576092768241-dec231879fc3?w=400" alt="Chai Latte">
+                            <h5 class="menu-price">$4.75</h5>
+                        </div>
+                        <div class="col-8 col-sm-9">
+                            <h4 data-translate="chaiLatte">Chai Latte</h4>
+                            <p class="m-0" data-translate="chaiLatteDesc">House-made chai blend with warming spices, black tea, and steamed milk. Available hot or iced.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Food Menu Section -->
+            <div class="row mt-5 pt-5">
+                <div class="col-12">
+                    <div class="section-title">
+                        <h4 class="text-primary text-uppercase" style="letter-spacing: 5px;" data-translate="foodMenu">Food Menu</h4>
+                        <h1 class="display-4" data-translate="freshPastries">Fresh Pastries & Light Bites</h1>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <h3 class="mb-4" data-translate="pastriesBaked">Pastries & Baked Goods</h3>
+                    <div class="d-flex justify-content-between border-bottom pb-2 mb-3">
+                        <h5>Croissant (Plain or Chocolate)</h5>
+                        <h5 class="text-primary">$3.50</h5>
+                    </div>
+                    <div class="d-flex justify-content-between border-bottom pb-2 mb-3">
+                        <h5>Blueberry Muffin</h5>
+                        <h5 class="text-primary">$3.75</h5>
+                    </div>
+                    <div class="d-flex justify-content-between border-bottom pb-2 mb-3">
+                        <h5>Cinnamon Roll</h5>
+                        <h5 class="text-primary">$4.25</h5>
+                    </div>
+                    <div class="d-flex justify-content-between border-bottom pb-2 mb-3">
+                        <h5>Banana Bread Slice</h5>
+                        <h5 class="text-primary">$3.25</h5>
+                    </div>
+                    <div class="d-flex justify-content-between pb-2 mb-3">
+                        <h5>Seasonal Fruit Danish</h5>
+                        <h5 class="text-primary">$4.00</h5>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <h3 class="mb-4" data-translate="sandwiches">Sandwiches & Snacks</h3>
+                    <div class="d-flex justify-content-between border-bottom pb-2 mb-3">
+                        <h5>Turkey & Swiss Panini</h5>
+                        <h5 class="text-primary">$7.95</h5>
+                    </div>
+                    <div class="d-flex justify-content-between border-bottom pb-2 mb-3">
+                        <h5>Caprese Sandwich</h5>
+                        <h5 class="text-primary">$7.50</h5>
+                    </div>
+                    <div class="d-flex justify-content-between border-bottom pb-2 mb-3">
+                        <h5>Avocado Toast</h5>
+                        <h5 class="text-primary">$6.75</h5>
+                    </div>
+                    <div class="d-flex justify-content-between border-bottom pb-2 mb-3">
+                        <h5>Bagel with Cream Cheese</h5>
+                        <h5 class="text-primary">$4.50</h5>
+                    </div>
+                    <div class="d-flex justify-content-between pb-2 mb-3">
+                        <h5>Yogurt Parfait</h5>
+                        <h5 class="text-primary">$5.25</h5>
                     </div>
                 </div>
             </div>
@@ -156,9 +339,9 @@
         <div class="row mx-0 pt-5 px-sm-3 px-lg-5 mt-4">
             <div class="col-lg-3 col-md-6 mb-5">
                 <h4 class="text-white text-uppercase mb-4" style="letter-spacing: 3px;">Get In Touch</h4>
-                <p><i class="fa fa-map-marker-alt mr-2"></i>123 Street, New York, USA</p>
+                <p><i class="fa fa-map-marker-alt mr-2"></i>Strada Scolii 11, Brasov</p>
                 <p><i class="fa fa-phone-alt mr-2"></i>+012 345 67890</p>
-                <p class="m-0"><i class="fa fa-envelope mr-2"></i>info@example.com</p>
+                <p class="m-0"><i class="fa fa-envelope mr-2"></i>coffee.tales.caffe@gmail.com</p>
             </div>
             <div class="col-lg-3 col-md-6 mb-5">
                 <h4 class="text-white text-uppercase mb-4" style="letter-spacing: 3px;">Follow Us</h4>
@@ -192,10 +375,6 @@
                 </div>
             </div>
         </div>
-        <div class="container-fluid text-center text-white border-top mt-4 py-4 px-sm-3 px-md-5" style="border-color: rgba(256, 256, 256, .1) !important;">
-            <p class="mb-2 text-white">Copyright &copy; <a class="font-weight-bold" href="#">Domain</a>. All Rights Reserved.</a></p>
-            <p class="m-0 text-white">Designed by <a class="font-weight-bold" href="https://htmlcodex.com">HTML Codex</a> Distributed by <a href="https://themewagon.com" target="_blank">ThemeWagon</a></a></p>
-        </div>
     </div>
     <!-- Footer End -->
 
@@ -219,7 +398,13 @@
     <script src="mail/contact.js"></script>
 
     <!-- Template Javascript -->
+        <!-- Template Javascript -->
     <script src="js/main.js"></script>
+    
+    <!-- Language Toggle Script -->
+    <script src="js/language-toggle.js"></script>
+</body>
+</html>
 </body>
 
 </html>
