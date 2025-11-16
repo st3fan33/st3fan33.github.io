@@ -211,7 +211,7 @@ const translations = {
         
         // Homepage About
         aboutTitle: "Despre Noi",
-        aboutHeading: "Deservim Din 1995",
+        aboutHeading: "Servim Din 1995",
         ourStory: "Povestea Noastră",
         storySubtitle: "De la rețeta secretă a unei bunici la cafeneaua ta preferată din cartier",
         storyText: "Coffee Tales a început în 1995 când Maria Santos a transformat librăria veche a bunicii sale într-o cafenea primitoare. Înarmată cu rețeta scrisă de mână a abuelei sale pentru espresso-ul cubanez perfect și cu visul de a crea un loc de întâlnire pentru comunitate, ea a transformat rafturile prăfuite în mese calde de stejar. Astăzi, încă preparăm fiecare ceașcă cu aceeași pasiune și precizie pe care Maria le-a adus la acea primă oală de cafea cu aproape trei decenii în urmă.",
