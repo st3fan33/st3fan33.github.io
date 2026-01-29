@@ -1,6 +1,27 @@
 (function ($) {
     "use strict";
     
+    // ============= CONFIGURATION =============
+    // Set to true to always trigger scroll animation (for testing)
+    var DEBUG_MODE = false;
+    
+    // Scroll position per page (0.0 to 1.2+)
+    // 0.0 = stay at top (no scroll)
+    // 0.5 = scroll halfway down the header
+    // 1.0 = scroll to bottom of header (content just starts)
+    // 1.1 = scroll 10% past header into content
+    // 1.2 = scroll 20% past header into content
+    var PAGE_SCROLL_POSITIONS = {
+        'about.html': 1.38,
+        'service.html': 1.30,
+        'menu.html': 1.34,
+        'reservation.html': 1.05,
+        'testimonial.html': 1.05,
+        'contact.html': 1.30,
+        'default': 1.05  // fallback for any other pages
+    };
+    // =========================================
+    
     // Dropdown on mouse hover
     $(document).ready(function () {
         function toggleNavbarMethod() {
@@ -16,6 +37,42 @@
         }
         toggleNavbarMethod();
         $(window).resize(toggleNavbarMethod);
+        
+        // Auto-scroll to content on page load (only once per session)
+        if ($('.page-header').length > 0) {
+            // Check if user has already seen the scroll animation this session
+            var shouldScroll = DEBUG_MODE || !sessionStorage.getItem('hasSeenPageScroll');
+            
+            if (shouldScroll) {
+                setTimeout(function() {
+                    // Get current page filename
+                    var currentPage = window.location.pathname.split('/').pop();
+                    
+                    // Get scroll position for this page (or use default)
+                    var scrollPosition = PAGE_SCROLL_POSITIONS[currentPage] || PAGE_SCROLL_POSITIONS['default'];
+                    
+                    var headerHeight = $('.page-header').outerHeight();
+                    var scrollTarget = headerHeight * scrollPosition;
+                    
+                    if (DEBUG_MODE) {
+                        console.log('Page Scroll Debug:');
+                        console.log('- Current page:', currentPage);
+                        console.log('- Header height:', headerHeight + 'px');
+                        console.log('- Scroll position:', (scrollPosition * 100) + '%');
+                        console.log('- Scroll target:', scrollTarget + 'px');
+                    }
+                    
+                    $('html, body').animate({
+                        scrollTop: scrollTarget
+                    }, 1200, 'easeInOutCubic');
+                    
+                    // Mark as seen for this session (skip in debug mode)
+                    if (!DEBUG_MODE) {
+                        sessionStorage.setItem('hasSeenPageScroll', 'true');
+                    }
+                }, 300);
+            }
+        }
         
         // Enhanced animations - only non-critical ones
         try {
@@ -143,19 +200,39 @@
     
     // Navbar scroll effect
     function updateNavbar() {
-        if ($(window).scrollTop() > 50) {
+        var scroll = $(window).scrollTop();
+        
+        if (scroll > 50) {
+            $('.nav-bar').css('top', '0'); // Stick to top on scroll
+            
             $('.navbar').css({
-                background: 'rgba(51, 33, 29, 0.95)',
+                background: 'rgba(51, 33, 29, 0.95)', // Solid dark brown on scroll
                 backdropFilter: 'blur(10px)',
                 boxShadow: '0 5px 20px rgba(0,0,0,0.3)',
-                transition: 'all 0.4s ease'
+                height: '70px',
+                padding: '0 30px'
+            });
+            
+            // Shrink logo on scroll
+            $('.navbar-brand img').css({
+                height: '100px',
+                transform: 'translateY(5px)'
             });
         } else {
+            $('.nav-bar').css('top', '30px'); // Float down when at top
+            
             $('.navbar').css({
-                background: 'rgba(51, 33, 29, 0.7)',
-                backdropFilter: 'blur(10px)',
+                background: 'linear-gradient(to bottom, rgba(51, 33, 29, 0.4) 0%, rgba(51, 33, 29, 0) 100%)', // Transparent gradient
+                backdropFilter: 'none',
                 boxShadow: 'none',
-                transition: 'all 0.4s ease'
+                height: '90px',
+                padding: '0 30px'
+            });
+            
+            // Restore logo
+            $('.navbar-brand img').css({
+                height: '140px',
+                transform: 'translateY(0)'
             });
         }
     }

@@ -241,12 +241,159 @@ body {
 }
 
 /* ========================
-   NAVBAR ANIMATIONS
+   PAGE HEADER REDESIGN
    ======================== */
 
+.page-header {
+    min-height: 60vh !important; /* Much taller, spacious header */
+    padding-top: 150px !important; /* Space for floating navbar */
+    padding-bottom: 80px !important;
+    position: relative;
+    overflow: hidden;
+}
+
+.page-header::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(180deg, rgba(0, 0, 0, 0.1) 0%, rgba(0, 0, 0, 0.5) 100%);
+    z-index: 0;
+}
+
+.page-header > div {
+    position: relative;
+    z-index: 1;
+    min-height: auto !important;
+    padding: 60px 0 !important;
+}
+
+.page-header h1 {
+    font-size: 4rem !important;
+    font-weight: 800 !important;
+    letter-spacing: 8px !important;
+    margin-bottom: 30px !important;
+    text-shadow: 0 5px 20px rgba(0,0,0,0.5);
+    animation: slideInFromTop 0.8s ease-out;
+}
+
+.page-header .breadcrumb-container {
+    animation: fadeInUp 1s ease-out 0.3s backwards;
+}
+
+@keyframes slideInFromTop {
+    from {
+        opacity: 0;
+        transform: translateY(-50px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Decorative elements */
+.page-header::after {
+    content: '';
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    right: 0;
+    height: 15px;
+    background: url('../img/overlay-bottom.png') repeat-x bottom;
+    background-size: auto;
+    z-index: 2;
+}
+
+/* Mobile adjustments */
+@media (max-width: 768px) {
+    .page-header {
+        min-height: 50vh !important;
+        padding-top: 120px !important;
+        padding-bottom: 60px !important;
+    }
+    
+    .page-header h1 {
+        font-size: 2.5rem !important;
+        letter-spacing: 4px !important;
+    }
+}
+
+.nav-bar {
+    position: fixed; /* Overlay content */
+    width: 100%;
+    top: 30px;
+    left: 0;
+    z-index: 9999;
+    transition: top 0.4s ease;
+}
+
 .navbar {
+    height: 90px;
+    padding: 0 30px !important;
+    align-items: center;
     transition: all 0.4s cubic-bezier(0.4, 0.0, 0.2, 1);
 }
+
+.navbar-brand {
+    position: absolute;
+    top: 0;
+    left: 45px;
+    z-index: 1001; /* Above navbar background */
+    padding: 0;
+    margin: 0;
+}
+
+/* Override inline styles and set logo size */
+.navbar-brand img {
+    height: 140px !important; /* Large overhanging logo */
+    width: auto;
+    transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+    filter: drop-shadow(0 5px 10px rgba(0,0,0,0.2));
+}
+
+/* Adjust toggler position */
+.navbar-toggler {
+    margin-left: auto;
+    z-index: 1002;
+}
+
+/* Mobile adjustments */
+@media (max-width: 992px) {
+    .navbar-brand {
+        position: relative;
+        left: 0;
+        margin-right: auto;
+    }
+    
+    .navbar-brand img {
+        height: 60px !important; /* Much smaller on mobile */
+    }
+    
+    .navbar {
+        height: auto;
+        padding: 10px 15px !important;
+    }
+}
+
+/* Scrolled state (handled via JS adding generic styles, 
+   but we can target based on page scroll if we added a class. 
+   For now, we'll try to use the transition on the image itself 
+   if JS supports it, or just rely on the fixed overhang look) */
+
 
 .nav-link {
     position: relative;
@@ -501,4 +648,11 @@ input:focus, textarea:focus {
         animation: none !important;
         transition: none !important;
     }
+}
+
+/* Add breathing room after page headers */
+.page-header + .container,
+.page-header + .container-fluid,
+.page-header.mb-5 {
+    margin-bottom: 100px !important;
 }
