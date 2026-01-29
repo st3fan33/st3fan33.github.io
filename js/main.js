@@ -38,6 +38,11 @@
         toggleNavbarMethod();
         $(window).resize(toggleNavbarMethod);
         
+        // Clear scroll flag only when clicking content buttons (not navbar)
+        $('.btn[href*=".html"], .container a.btn[href*=".html"]').on('click', function() {
+            sessionStorage.removeItem('hasSeenPageScroll');
+        });
+        
         // Auto-scroll to content on page load (only once per session)
         if ($('.page-header').length > 0) {
             // Check if user has already seen the scroll animation this session
@@ -243,5 +248,37 @@
     // Update navbar on scroll
     $(window).on('scroll', updateNavbar);
     
+    // Animate section title bars dynamically based on scroll position
+    function checkSectionBars() {
+        $('.section-title').each(function() {
+            var elementTop = $(this).offset().top;
+            var viewportTop = $(window).scrollTop();
+            var viewportBottom = viewportTop + $(window).height();
+            
+            // Calculate how far the section has scrolled into view
+            var triggerPoint = viewportBottom - 350; // Start animation later - when 350px from bottom of viewport
+            var distanceFromTrigger = triggerPoint - elementTop;
+            
+            // Calculate progress (0 to 1) - how far the section has moved past trigger point
+            var scrollRange = 500; // Longer distance for slower, more visible expansion
+            var progress = Math.max(0, Math.min(1, distanceFromTrigger / scrollRange));
+            
+            // Set width based on scroll progress (0% to 80%)
+            var targetWidth = progress * 80;
+            
+            // Apply the width directly to the pseudo-element via CSS variable
+            $(this).css('--bar-width', targetWidth + '%');
+            
+            if (progress > 0) {
+                $(this).addClass('bar-animating');
+            } else {
+                $(this).removeClass('bar-animating');
+            }
+        });
+    }
+    
+    // Check on scroll with smooth updates
+    $(window).on('scroll', checkSectionBars);
+
 })(jQuery);
 

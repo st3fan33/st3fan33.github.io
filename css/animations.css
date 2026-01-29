@@ -2,6 +2,15 @@
    ADVANCED ANIMATIONS SYSTEM
    ======================== */
 
+/* Smooth scrolling for entire page */
+html {
+    scroll-behavior: smooth;
+}
+
+* {
+    scroll-behavior: smooth;
+}
+
 /* Smooth transitions for common elements */
 a, button, .btn, .nav-link {
     transition: all 0.3s cubic-bezier(0.4, 0.0, 0.2, 1);
@@ -10,6 +19,25 @@ a, button, .btn, .nav-link {
 /* Page load fade in */
 body {
     opacity: 1;
+    background: linear-gradient(135deg, #faf9f7 0%, #f5f3f0 50%, #faf9f7 100%);
+    background-attachment: fixed;
+    position: relative;
+}
+
+/* Subtle coffee bean pattern overlay */
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+        radial-gradient(circle at 20% 30%, rgba(218, 159, 91, 0.03) 0%, transparent 50%),
+        radial-gradient(circle at 80% 70%, rgba(218, 159, 91, 0.04) 0%, transparent 50%),
+        radial-gradient(circle at 40% 80%, rgba(51, 33, 29, 0.02) 0%, transparent 40%);
+    pointer-events: none;
+    z-index: -1;
 }
 
 @keyframes fadeInBody {
@@ -555,26 +583,38 @@ body {
 /* Section dividers */
 .section-title {
     position: relative;
-    overflow: hidden;
+    padding-bottom: 25px;
+    margin-bottom: 35px;
+    --bar-width: 0%;
 }
 
 .section-title::before {
     content: '';
     position: absolute;
     bottom: 0;
-    left: 0;
-    width: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    width: var(--bar-width);
+    max-width: 600px;
     height: 2px;
     background: linear-gradient(90deg, transparent, #DA9F5B, transparent);
-    transform: translateX(-100%);
-    animation: slideIn 2s ease-in-out forwards;
+    transition: width 0.1s linear;
 }
 
-@keyframes slideIn {
+.section-title.bar-animating::before {
+    opacity: 1;
+}
+
+@keyframes slideInBar {
+    from {
+        width: 0;
+    }
     to {
-        transform: translateX(0);
+        width: 80%;
     }
 }
+
+
 
 /* ========================
    MICRO-INTERACTIONS
@@ -655,4 +695,151 @@ input:focus, textarea:focus {
 .page-header + .container-fluid,
 .page-header.mb-5 {
     margin-bottom: 100px !important;
+}
+
+/* ========================
+   WARM DESIGN ENHANCEMENTS
+   ======================== */
+
+/* Add subtle warm glow to containers */
+.container {
+    position: relative;
+}
+
+/* Decorative coffee steam elements - removed to prevent overlap */
+
+/* Add warm card shadows and backgrounds */
+.service-item,
+.menu-item {
+    background: rgba(255, 255, 255, 0.7);
+    backdrop-filter: blur(10px);
+    box-shadow: 
+        0 4px 20px rgba(218, 159, 91, 0.08),
+        0 0 60px rgba(218, 159, 91, 0.03);
+    border-radius: 15px;
+    position: relative;
+    overflow: hidden;
+}
+
+.service-item::before,
+.menu-item::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, rgba(218, 159, 91, 0.5), transparent);
+    transform: scaleX(0);
+    transition: transform 0.5s ease;
+}
+
+.service-item:hover::before,
+.menu-item:hover::before {
+    transform: scaleX(1);
+}
+
+/* Warm text shadows for headings */
+h1, h2, h3, .display-4 {
+    text-shadow: 0 2px 10px rgba(218, 159, 91, 0.1);
+}
+
+/* Subtle pattern for section backgrounds */
+.py-5 {
+    position: relative;
+}
+
+.py-5:nth-child(even) {
+    background: linear-gradient(180deg, rgba(245, 243, 240, 0.3) 0%, rgba(250, 249, 247, 0.3) 100%);
+}
+
+/* Coffee cup steam animation for decorative elements */
+@keyframes steam {
+    0% {
+        transform: translateY(0) scaleX(1);
+        opacity: 0.6;
+    }
+    50% {
+        transform: translateY(-20px) scaleX(1.2);
+        opacity: 0.3;
+    }
+    100% {
+        transform: translateY(-40px) scaleX(0.8);
+        opacity: 0;
+    }
+}
+
+/* Add warmth to testimonial items */
+.testimonial-item {
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.9) 0%, rgba(250, 248, 245, 0.9) 100%);
+    border-radius: 20px;
+    padding: 30px;
+    box-shadow: 
+        0 10px 40px rgba(218, 159, 91, 0.1),
+        inset 0 1px 0 rgba(255, 255, 255, 0.8);
+    position: relative;
+}
+
+.testimonial-item::before {
+    content: '"';
+    position: absolute;
+    top: -20px;
+    left: 20px;
+    font-size: 100px;
+    color: rgba(218, 159, 91, 0.1);
+    font-family: Georgia, serif;
+    line-height: 1;
+}
+
+/* Add warm borders to forms */
+.form-control {
+    border: 2px solid rgba(218, 159, 91, 0.2);
+    background: rgba(255, 255, 255, 0.8);
+    transition: all 0.3s ease;
+}
+
+.form-control:focus {
+    border-color: rgba(218, 159, 91, 0.6);
+    background: rgba(255, 255, 255, 1);
+    box-shadow: 0 0 20px rgba(218, 159, 91, 0.15);
+}
+
+/* Warm gradient overlays for images */
+.about-img img,
+.menu-item img {
+    position: relative;
+}
+
+/* Add subtle grain texture overlay */
+body::after {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="300" height="300"><filter id="noise"><feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="4" /></filter><rect width="300" height="300" filter="url(%23noise)" opacity="0.05"/></svg>');
+    pointer-events: none;
+    z-index: 10000;
+    mix-blend-mode: overlay;
+    opacity: 0.3;
+}
+
+
+/* Menu item image consistency */
+.menu-item-img {
+    width: 120px !important;
+    height: 120px !important;
+    object-fit: cover;
+    border-radius: 50%;
+}
+
+/* Ensure parent containers don't override */
+.col-4.col-sm-3 {
+    position: relative;
+}
+
+.col-4.col-sm-3 .menu-item-img {
+    width: 120px !important;
+    height: 120px !important;
 }
