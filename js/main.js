@@ -24,15 +24,21 @@
     
     // Dropdown on mouse hover
     $(document).ready(function () {
+        var dropdownTimer;
+        
         function toggleNavbarMethod() {
             if ($(window).width() > 992) {
-                $('.navbar .dropdown').on('mouseover', function () {
-                    $('.dropdown-toggle', this).trigger('click');
-                }).on('mouseout', function () {
-                    $('.dropdown-toggle', this).trigger('click').blur();
+                $('.navbar .dropdown').on('mouseenter', function () {
+                    clearTimeout(dropdownTimer);
+                    $(this).find('.dropdown-menu').addClass('show');
+                }).on('mouseleave', function () {
+                    var $menu = $(this).find('.dropdown-menu');
+                    dropdownTimer = setTimeout(function() {
+                        $menu.removeClass('show');
+                    }, 500); // Stay open for 500ms after mouse leaves
                 });
             } else {
-                $('.navbar .dropdown').off('mouseover').off('mouseout');
+                $('.navbar .dropdown').off('mouseenter').off('mouseleave');
             }
         }
         toggleNavbarMethod();
@@ -279,6 +285,53 @@
     
     // Check on scroll with smooth updates
     $(window).on('scroll', checkSectionBars);
+    
+    // ========================
+    // MENU ITEM SCROLL ANIMATIONS
+    // ========================
+    
+    var menuItemsAnimated = false;
+    
+    function checkMenuItems() {
+        // Target both menu page items and homepage menu rows
+        $('.menu-item, .service-item, .row.align-items-center.mb-5').each(function() {
+            var $item = $(this);
+            var elementTop = $item.offset().top;
+            var viewportTop = $(window).scrollTop();
+            var viewportBottom = viewportTop + $(window).height();
+            
+            // Calculate how far the item has scrolled into view
+            var triggerPoint = viewportBottom - 20;
+            var distanceFromTrigger = triggerPoint - elementTop;
+            
+            // Calculate progress (0 to 1)
+            var scrollRange = 200;
+            var progress = Math.max(0, Math.min(1, distanceFromTrigger / scrollRange));
+            
+            // Apply transformations based on progress
+            var opacity = progress;
+            var translateY = (1 - progress) * 40; // Start 40px down
+            var scale = 0.85 + (progress * 0.15); // Scale from 0.85 to 1.0
+            
+            $item[0].style.opacity = opacity;
+            $item[0].style.transform = 'translateY(' + translateY + 'px) scale(' + scale + ')';
+        });
+    }
+    
+    // Check on scroll
+    $(window).on('scroll', function() {
+        checkMenuItems();
+    });
+    
+    // Initial check on page load
+    $(window).on('load', function() {
+        checkMenuItems();
+    });
+    
+    // Also check when DOM is ready
+    $(document).ready(function() {
+        checkMenuItems();
+    });
     
     // ========================
     // FLOATING COFFEE BEANS
