@@ -279,6 +279,175 @@
     
     // Check on scroll with smooth updates
     $(window).on('scroll', checkSectionBars);
+    
+    // ========================
+    // FLOATING COFFEE BEANS
+    // ========================
+    
+    function initFloatingBeans() {
+        var beans = [];
+        var numBeans = 15; // 15 beans total
+        var beanPositions = []; // Track positions to avoid overlaps
+        
+        // Helper function to check if position overlaps with existing beans
+        function hasOverlap(newTop, newSide, newHorizontalOffset, newSize) {
+            var minDistance = 150; // Minimum distance between beans
+            
+            for (var i = 0; i < beanPositions.length; i++) {
+                var existing = beanPositions[i];
+                
+                // Only check beans on the same side
+                if (existing.side === newSide) {
+                    var topDiff = Math.abs(existing.top - newTop);
+                    var horizontalDiff = Math.abs(existing.horizontalOffset - newHorizontalOffset);
+                    
+                    // Calculate distance
+                    var distance = Math.sqrt(topDiff * topDiff + horizontalDiff * horizontalDiff);
+                    
+                    if (distance < minDistance) {
+                        return true;
+                    }
+                }
+            }
+            return false;
+        }
+        
+        // Create beans
+        for (var i = 0; i < numBeans; i++) {
+            var bean = $('<div class="coffee-bean"></div>');
+            
+            // Try to find a non-overlapping position
+            var attempts = 0;
+            var topPosition, side, horizontalOffset, sizeClass;
+            
+            do {
+                // Randomly place on left or right side
+                side = Math.random() > 0.5 ? 'left' : 'right';
+                
+                // Random size
+                sizeClass = Math.random() > 0.7 ? 'large' : (Math.random() > 0.5 ? 'small' : '');
+                
+                // Random vertical position (spread across viewport)
+                topPosition = (i / numBeans) * 100 + (Math.random() * 20 - 10); // Distribute evenly with some randomness
+                
+                // Random horizontal offset from edge (0-80px)
+                horizontalOffset = Math.random() * 80;
+                
+                attempts++;
+            } while (hasOverlap(topPosition, side, horizontalOffset, sizeClass) && attempts < 20);
+            
+            // Store position
+            beanPositions.push({
+                top: topPosition,
+                side: side,
+                horizontalOffset: horizontalOffset
+            });
+            
+            bean.addClass(side);
+            if (sizeClass) bean.addClass(sizeClass);
+            
+            // Random rotation
+            var rotation = Math.random() * 360;
+            
+            bean.css({
+                'top': topPosition + '%',
+                'transform': 'rotate(' + rotation + 'deg)',
+            });
+            
+            if (side === 'left') {
+                bean.css('left', horizontalOffset + 'px');
+            } else {
+                bean.css('right', horizontalOffset + 'px');
+            }
+            
+            // Store initial data
+            beans.push({
+                element: bean,
+                initialTop: topPosition,
+                rotation: rotation
+            });
+            
+            $('body').append(bean);
+        }
+        
+        // Parallax scroll effect - beans move opposite to scroll direction
+        var lastScrollTop = $(window).scrollTop();
+        
+        // Function to check if bean overlaps with dark sections
+        function updateBeanVisibility() {
+            beans.forEach(function(bean) {
+                var beanTop = bean.element.offset().top;
+                var beanBottom = beanTop + bean.element.height();
+                var isOverDark = false;
+                
+                // Check if bean overlaps with any dark background sections
+                $('.page-header, .offer, .reservation, .footer, [style*="background"]').each(function() {
+                    var sectionTop = $(this).offset().top;
+                    var sectionBottom = sectionTop + $(this).outerHeight();
+                    
+                    // Check for overlap
+                    if (beanBottom > sectionTop && beanTop < sectionBottom) {
+                        // Additional check: only hide if it's actually a dark section
+                        var bgImage = $(this).css('background-image');
+                        var hasClass = $(this).hasClass('page-header') || 
+                                      $(this).hasClass('offer') || 
+                                      $(this).hasClass('reservation') || 
+                                      $(this).hasClass('footer');
+                        
+                        if (bgImage !== 'none' || hasClass) {
+                            isOverDark = true;
+                            return false; // break loop
+                        }
+                    }
+                });
+                
+                // Fade out or show bean based on background
+                if (isOverDark) {
+                    bean.element.css('opacity', '0');
+                } else {
+                    bean.element.css('opacity', '1');
+                }
+            });
+        }
+        
+        $(window).on('scroll', function() {
+            var scrollTop = $(window).scrollTop();
+            var scrollDelta = scrollTop - lastScrollTop;
+            
+            beans.forEach(function(bean) {
+                // Scroll down (positive delta) = beans move up (subtract)
+                // Scroll up (negative delta) = beans move down (subtract negative = add)
+                var currentTop = parseFloat(bean.element.css('top'));
+                var speed = 0.3; // Parallax speed
+                var newTop = currentTop - (scrollDelta * speed);
+                
+                // Wrap around when beans go off screen
+                var viewportHeight = $(window).height();
+                if (newTop < -100) {
+                    newTop = viewportHeight + 50;
+                } else if (newTop > viewportHeight + 50) {
+                    newTop = -100;
+                }
+                
+                bean.element.css({
+                    'top': newTop + 'px'
+                });
+            });
+            
+            // Update visibility based on dark sections
+            updateBeanVisibility();
+            
+            lastScrollTop = scrollTop;
+        });
+        
+        // Initial visibility check
+        updateBeanVisibility();
+    }
+    
+    // Initialize beans after page load
+    $(window).on('load', function() {
+        setTimeout(initFloatingBeans, 500);
+    });
 
 })(jQuery);
 
