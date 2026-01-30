@@ -69,24 +69,34 @@
             });
             
             // Add subtle parallax effect on mouse move (background image only)
-            $carousel.on('mousemove', function(e) {
-                if ($(window).width() > 768) {
+            var carouselParallax = function(e) {
+                if ($(window).width() > 768 && $carousel.find('.carousel-item.active').length) {
                     var $active = $carousel.find('.carousel-item.active img');
-                    var x = e.pageX - $carousel.offset().left;
-                    var y = e.pageY - $carousel.offset().top;
-                    var width = $carousel.width();
-                    var height = $carousel.height();
+                    var carouselTop = $carousel.offset().top;
+                    var carouselHeight = $carousel.height();
+                    var carouselBottom = carouselTop + carouselHeight;
                     
-                    // Calculate movement opposite to mouse (parallax effect)
-                    var moveX = ((x / width) - 0.5) * -30; // Inverted: -15px to 15px
-                    var moveY = ((y / height) - 0.5) * -30; // Inverted: -15px to 15px
-                    
-                    $active.css({
-                        'transform': 'translate(' + moveX + 'px, ' + moveY + 'px) scale(1.1)',
-                        'transition': 'transform 0.3s ease-out'
-                    });
+                    // Check if mouse is within carousel vertical bounds (including navbar area)
+                    if (e.pageY >= 0 && e.pageY <= carouselBottom) {
+                        var x = e.pageX;
+                        var y = e.pageY;
+                        var width = $(window).width();
+                        var height = carouselHeight;
+                        
+                        // Calculate movement opposite to mouse (parallax effect)
+                        var moveX = ((x / width) - 0.5) * -30; // Inverted: -15px to 15px
+                        var moveY = ((y / height) - 0.5) * -30; // Inverted: -15px to 15px
+                        
+                        $active.css({
+                            'transform': 'translate(' + moveX + 'px, ' + moveY + 'px) scale(1.1)',
+                            'transition': 'transform 0.3s ease-out'
+                        });
+                    }
                 }
-            });
+            };
+            
+            // Listen to mousemove on entire document for carousel area
+            $(document).on('mousemove', carouselParallax);
             
             $carousel.on('mouseleave', function() {
                 if ($(window).width() > 768) {
