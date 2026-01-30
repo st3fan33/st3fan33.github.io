@@ -9566,6 +9566,451 @@ h6,
   z-index: 1;
 }
 
+/* Enhanced Carousel Styling */
+#blog-carousel {
+  position: relative;
+  overflow: hidden;
+}
+
+#blog-carousel .carousel-item {
+  height: 100vh;
+  min-height: 600px;
+  transition: transform 1s ease-in-out;
+  position: relative;
+}
+
+#blog-carousel .carousel-item img {
+  object-fit: cover;
+  height: 100vh;
+  min-height: 600px;
+  width: 100%;
+}
+
+/* Floating particles effect */
+.carousel-particles {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 2;
+  overflow: hidden;
+}
+
+.carousel-particles::before,
+.carousel-particles::after {
+  content: '';
+  position: absolute;
+  width: 4px;
+  height: 4px;
+  background: rgba(218, 159, 91, 0.6);
+  border-radius: 50%;
+  box-shadow: 
+    0 0 10px rgba(218, 159, 91, 0.8),
+    100px 200px 0 rgba(218, 159, 91, 0.4),
+    200px 100px 0 rgba(218, 159, 91, 0.5),
+    300px 300px 0 rgba(218, 159, 91, 0.3),
+    400px 150px 0 rgba(218, 159, 91, 0.6),
+    500px 250px 0 rgba(218, 159, 91, 0.4),
+    600px 50px 0 rgba(218, 159, 91, 0.5),
+    700px 350px 0 rgba(218, 159, 91, 0.3),
+    800px 100px 0 rgba(218, 159, 91, 0.4),
+    900px 200px 0 rgba(218, 159, 91, 0.5);
+  animation: particleFloat 20s linear infinite;
+}
+
+.carousel-particles::after {
+  animation-delay: -10s;
+  animation-duration: 25s;
+}
+
+@keyframes particleFloat {
+  0% {
+    transform: translateY(0) translateX(0) rotate(0deg);
+    opacity: 0;
+  }
+  10% {
+    opacity: 1;
+  }
+  90% {
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(-100vh) translateX(100px) rotate(360deg);
+    opacity: 0;
+  }
+}
+
+/* Smooth fade transition */
+#blog-carousel.carousel-fade .carousel-item {
+  opacity: 0;
+  transition: opacity 1.2s ease-in-out;
+  transform: none;
+}
+
+#blog-carousel.carousel-fade .carousel-item.active {
+  opacity: 1;
+}
+
+#blog-carousel.carousel-fade .carousel-item-next.carousel-item-left,
+#blog-carousel.carousel-fade .carousel-item-prev.carousel-item-right {
+  opacity: 1;
+}
+
+#blog-carousel.carousel-fade .active.carousel-item-left,
+#blog-carousel.carousel-fade .active.carousel-item-right {
+  opacity: 0;
+}
+
+/* Enhanced carousel controls with impressive animations */
+#blog-carousel .carousel-control-prev,
+#blog-carousel .carousel-control-next {
+  width: 80px;
+  height: 80px;
+  top: 50%;
+  transform: translateY(-50%);
+  bottom: auto;
+  opacity: 0;
+  transition: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+  background: linear-gradient(135deg, rgba(218, 159, 91, 0.4), rgba(218, 159, 91, 0.2));
+  border-radius: 50%;
+  margin: 0 20px;
+  border: 2px solid rgba(218, 159, 91, 0.3);
+  backdrop-filter: blur(5px);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+}
+
+#blog-carousel .carousel-control-prev::before,
+#blog-carousel .carousel-control-next::before {
+  content: '';
+  position: absolute;
+  top: -5px;
+  left: -5px;
+  right: -5px;
+  bottom: -5px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, rgba(218, 159, 91, 0.6), transparent);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  z-index: -1;
+}
+
+#blog-carousel:hover .carousel-control-prev,
+#blog-carousel:hover .carousel-control-next {
+  opacity: 0.9;
+  animation: controlFloat 3s ease-in-out infinite;
+}
+
+#blog-carousel .carousel-control-prev:hover,
+#blog-carousel .carousel-control-next:hover {
+  opacity: 1 !important;
+  background: linear-gradient(135deg, rgba(218, 159, 91, 0.8), rgba(218, 159, 91, 0.5));
+  transform: translateY(-50%) scale(1.2) rotate(5deg);
+  box-shadow: 0 0 30px rgba(218, 159, 91, 0.8), 0 0 60px rgba(218, 159, 91, 0.4);
+  border-color: rgba(218, 159, 91, 0.8);
+}
+
+#blog-carousel .carousel-control-prev:hover::before,
+#blog-carousel .carousel-control-next:hover::before {
+  opacity: 1;
+  animation: rotate360 2s linear infinite;
+}
+
+#blog-carousel .carousel-control-prev-icon,
+#blog-carousel .carousel-control-next-icon {
+  width: 40px;
+  height: 40px;
+  filter: drop-shadow(2px 2px 8px rgba(0,0,0,0.8));
+  transition: transform 0.3s ease;
+}
+
+#blog-carousel .carousel-control-prev:hover .carousel-control-prev-icon,
+#blog-carousel .carousel-control-next:hover .carousel-control-next-icon {
+  transform: scale(1.3);
+  filter: drop-shadow(2px 2px 12px rgba(218, 159, 91, 1));
+}
+
+@keyframes controlFloat {
+  0%, 100% {
+    transform: translateY(-50%);
+  }
+  50% {
+    transform: translateY(-55%);
+  }
+}
+
+@keyframes rotate360 {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* Enhanced carousel indicators with impressive effects */
+#blog-carousel .carousel-indicators {
+  bottom: 30px;
+  margin-bottom: 0;
+  z-index: 15;
+}
+
+#blog-carousel .carousel-indicators li {
+  width: 60px;
+  height: 6px;
+  border-radius: 3px;
+  background-color: rgba(255, 255, 255, 0.5);
+  margin: 0 8px;
+  border: none;
+  transition: all 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+  cursor: pointer;
+  position: relative;
+  overflow: visible;
+}
+
+#blog-carousel .carousel-indicators li::before {
+  content: '';
+  position: absolute;
+  top: -3px;
+  left: -3px;
+  right: -3px;
+  bottom: -3px;
+  border-radius: 5px;
+  background: linear-gradient(45deg, transparent, rgba(218, 159, 91, 0.3), transparent);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+#blog-carousel .carousel-indicators li:hover {
+  background-color: rgba(218, 159, 91, 0.9);
+  transform: scale(1.2) translateY(-3px);
+  box-shadow: 0 5px 15px rgba(218, 159, 91, 0.4);
+}
+
+#blog-carousel .carousel-indicators li:hover::before {
+  opacity: 1;
+}
+
+#blog-carousel .carousel-indicators li.active {
+  background: linear-gradient(90deg, #DA9F5B, #f0b978, #DA9F5B);
+  background-size: 200% 100%;
+  width: 80px;
+  height: 8px;
+  box-shadow: 0 0 20px rgba(218, 159, 91, 1), 0 0 40px rgba(218, 159, 91, 0.5);
+  animation: shimmer 2s ease-in-out infinite, activeIndicatorPulse 1.5s ease-in-out infinite;
+  transform: translateY(-2px);
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: 200% 0;
+  }
+  100% {
+    background-position: -200% 0;
+  }
+}
+
+@keyframes activeIndicatorPulse {
+  0%, 100% {
+    box-shadow: 0 0 20px rgba(218, 159, 91, 1), 0 0 40px rgba(218, 159, 91, 0.5);
+  }
+  50% {
+    box-shadow: 0 0 30px rgba(218, 159, 91, 1), 0 0 60px rgba(218, 159, 91, 0.7);
+  }
+}
+
+/* Animated caption elements with impressive effects */
+#blog-carousel .carousel-item.active .carousel-caption h2 {
+  animation: slideInFromTop 1s cubic-bezier(0.68, -0.55, 0.265, 1.55) 0.2s both;
+}
+
+#blog-carousel .carousel-item.active .carousel-caption h1 {
+  animation: zoomInBounce 1.2s cubic-bezier(0.175, 0.885, 0.32, 1.275) 0.4s both;
+}
+
+#blog-carousel .carousel-item.active .carousel-caption p {
+  animation: fadeInSlideUp 0.9s ease-out 0.7s both;
+}
+
+#blog-carousel .carousel-item.active .carousel-caption .d-flex.gap-3 {
+  animation: slideInFromBottom 1s cubic-bezier(0.68, -0.55, 0.265, 1.55) 0.9s both;
+}
+
+#blog-carousel .carousel-item.active .carousel-caption .d-flex.gap-3 .btn:first-child {
+  animation: bounceIn 0.8s cubic-bezier(0.68, -0.55, 0.265, 1.55) 1.1s both;
+}
+
+#blog-carousel .carousel-item.active .carousel-caption .d-flex.gap-3 .btn:last-child {
+  animation: bounceIn 0.8s cubic-bezier(0.68, -0.55, 0.265, 1.55) 1.3s both;
+}
+
+#blog-carousel .carousel-item.active .carousel-caption .mt-4.d-flex {
+  animation: fadeInScale 1s ease-out 1.2s both;
+}
+
+#blog-carousel .carousel-item.active .carousel-caption .mt-4.d-flex > div {
+  animation: popIn 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55) both;
+}
+
+#blog-carousel .carousel-item.active .carousel-caption .mt-4.d-flex > div:nth-child(1) {
+  animation-delay: 1.3s;
+}
+
+#blog-carousel .carousel-item.active .carousel-caption .mt-4.d-flex > div:nth-child(2) {
+  animation-delay: 1.45s;
+}
+
+#blog-carousel .carousel-item.active .carousel-caption .mt-4.d-flex > div:nth-child(3) {
+  animation-delay: 1.6s;
+}
+
+#blog-carousel .carousel-item.active .carousel-caption .mt-4 h3 {
+  animation: pulse 2s ease-in-out infinite;
+}
+
+/* Reset animations for non-active slides */
+#blog-carousel .carousel-item:not(.active) .carousel-caption > * {
+  opacity: 0;
+  transform: translateY(50px) scale(0.9);
+}
+
+/* Keyframe Animations */
+@keyframes slideInFromTop {
+  from {
+    opacity: 0;
+    transform: translateY(-100px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes zoomInBounce {
+  0% {
+    opacity: 0;
+    transform: scale(0.3) rotate(-3deg);
+  }
+  50% {
+    transform: scale(1.05) rotate(1deg);
+  }
+  70% {
+    transform: scale(0.95) rotate(-1deg);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1) rotate(0);
+  }
+}
+
+@keyframes fadeInSlideUp {
+  from {
+    opacity: 0;
+    transform: translateY(40px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideInFromBottom {
+  from {
+    opacity: 0;
+    transform: translateY(80px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes bounceIn {
+  0% {
+    opacity: 0;
+    transform: scale(0.3) translateY(50px);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.1) translateY(-10px);
+  }
+  70% {
+    transform: scale(0.9) translateY(5px);
+  }
+  100% {
+    transform: scale(1) translateY(0);
+  }
+}
+
+@keyframes fadeInScale {
+  from {
+    opacity: 0;
+    transform: scale(0.8);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes popIn {
+  0% {
+    opacity: 0;
+    transform: scale(0) rotate(-180deg);
+  }
+  50% {
+    transform: scale(1.2) rotate(10deg);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1) rotate(0);
+  }
+}
+
+@keyframes pulse {
+  0%, 100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.05);
+  }
+}
+
+/* Enhanced parallax zoom effect on carousel background */
+#blog-carousel .carousel-item img {
+  transform: scale(1.15);
+  transition: transform 10s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  filter: brightness(0.9);
+}
+
+#blog-carousel .carousel-item.active img {
+  transform: scale(1);
+  filter: brightness(1);
+}
+
+/* Add glow effect to active image */
+#blog-carousel .carousel-item.active::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: radial-gradient(circle at center, rgba(218, 159, 91, 0.1) 0%, transparent 70%);
+  z-index: 1;
+  animation: glowPulse 3s ease-in-out infinite;
+}
+
+@keyframes glowPulse {
+  0%, 100% {
+    opacity: 0.3;
+  }
+  50% {
+    opacity: 0.6;
+  }
+}
+
 .section-title {
   position: relative;
   padding: 115px 0 35px 0;

@@ -44,6 +44,103 @@
         toggleNavbarMethod();
         $(window).resize(toggleNavbarMethod);
         
+        // Enhanced Carousel Functionality
+        var $carousel = $('#blog-carousel');
+        
+        if ($carousel.length) {
+            // Initialize carousel with enhanced settings
+            $carousel.carousel({
+                interval: 5000,
+                pause: 'hover',
+                ride: 'carousel',
+                wrap: true
+            });
+            
+            // Ensure smooth content transitions
+            $carousel.on('slid.bs.carousel', function (e) {
+                // Force repaint to restart animations
+                var $activeSlide = $(e.relatedTarget);
+                if ($activeSlide.hasClass('active')) {
+                    $activeSlide.find('.carousel-caption').css('display', 'none');
+                    setTimeout(function() {
+                        $activeSlide.find('.carousel-caption').css('display', '');
+                    }, 10);
+                }
+            });
+            
+            // Add subtle parallax effect on mouse move (background image only)
+            $carousel.on('mousemove', function(e) {
+                if ($(window).width() > 768) {
+                    var $active = $carousel.find('.carousel-item.active img');
+                    var x = e.pageX - $carousel.offset().left;
+                    var y = e.pageY - $carousel.offset().top;
+                    var width = $carousel.width();
+                    var height = $carousel.height();
+                    
+                    // Calculate movement opposite to mouse (parallax effect)
+                    var moveX = ((x / width) - 0.5) * -30; // Inverted: -15px to 15px
+                    var moveY = ((y / height) - 0.5) * -30; // Inverted: -15px to 15px
+                    
+                    $active.css({
+                        'transform': 'translate(' + moveX + 'px, ' + moveY + 'px) scale(1.1)',
+                        'transition': 'transform 0.3s ease-out'
+                    });
+                }
+            });
+            
+            $carousel.on('mouseleave', function() {
+                if ($(window).width() > 768) {
+                    var $active = $carousel.find('.carousel-item.active img');
+                    $active.css({
+                        'transform': 'translate(0, 0) scale(1.1)',
+                        'transition': 'transform 0.8s ease-out'
+                    });
+                }
+            });
+            
+            // Keyboard navigation
+            $(document).on('keydown', function(e) {
+                if (e.keyCode === 37) { // Left arrow
+                    $carousel.carousel('prev');
+                } else if (e.keyCode === 39) { // Right arrow
+                    $carousel.carousel('next');
+                }
+            });
+            
+            // Touch swipe support (basic)
+            var xDown = null;
+            var yDown = null;
+            
+            $carousel.on('touchstart', function(e) {
+                const firstTouch = e.touches[0] || e.originalEvent.touches[0];
+                xDown = firstTouch.clientX;
+                yDown = firstTouch.clientY;
+            });
+            
+            $carousel.on('touchmove', function(e) {
+                if (!xDown || !yDown) {
+                    return;
+                }
+                
+                var xUp = e.touches[0].clientX;
+                var yUp = e.touches[0].clientY;
+                
+                var xDiff = xDown - xUp;
+                var yDiff = yDown - yUp;
+                
+                if (Math.abs(xDiff) > Math.abs(yDiff)) {
+                    if (xDiff > 0) {
+                        $carousel.carousel('next');
+                    } else {
+                        $carousel.carousel('prev');
+                    }
+                }
+                
+                xDown = null;
+                yDown = null;
+            });
+        }
+        
         // Clear scroll flag only when clicking content buttons (not navbar)
         $('.btn[href*=".html"], .container a.btn[href*=".html"]').on('click', function() {
             sessionStorage.removeItem('hasSeenPageScroll');
