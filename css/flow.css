@@ -1,0 +1,137 @@
+/* Global Flow Enhancements */
+html {
+    background-color: #fdfbf7 !important; /* Soft, warm off-white */
+    background-image: linear-gradient(-45deg, #fdfbf7, #f8f3e6, #fdfbf7, #f4ebd8) !important;
+    background-size: 400% 400% !important;
+    animation: gradientBG 15s ease infinite !important;
+    background-attachment: fixed !important;
+}
+
+body {
+    background: transparent !important;
+    position: relative;
+}
+
+@keyframes gradientBG {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+/* Dynamic Floating Background Orbs */
+.bg-orbs {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -2;
+    pointer-events: none;
+    overflow: hidden;
+}
+
+.bg-orbs::before, .bg-orbs::after {
+    content: "";
+    position: absolute;
+    width: 60vw;
+    height: 60vw;
+    min-width: 500px;
+    min-height: 500px;
+    border-radius: 50%;
+    filter: blur(120px);
+    animation: floatOrbs 25s infinite alternate ease-in-out;
+}
+
+.bg-orbs::before {
+    background: rgba(218, 159, 91, 0.15); /* Warm coffee gold */
+    top: -10%;
+    left: -10%;
+}
+
+.bg-orbs::after {
+    background: rgba(51, 33, 29, 0.1); /* Deep coffee brown */
+    bottom: -10%;
+    right: -10%;
+    animation-delay: -12s;
+    animation-duration: 30s;
+}
+
+/* Ensure all main sections sit above the orbs */
+
+
+@keyframes floatOrbs {
+    0% { transform: translate(0, 0) scale(1); }
+    33% { transform: translate(5vw, 5vh) scale(1.1); }
+    66% { transform: translate(-5vw, 10vh) scale(0.9); }
+    100% { transform: translate(0, 0) scale(1); }
+}
+
+/* Remove jagged overlays that break the flow */
+.overlay-top::before, 
+.overlay-bottom::after {
+    display: none !important;
+}
+
+/* Smooth out the About section */
+.about-redesign {
+    background: transparent !important;
+    position: relative;
+    z-index: 10;
+    margin-top: 40px; /* Space below the rounded hero */
+    padding-top: 40px !important;
+}
+
+/* Service Section Flow */
+.service-flow {
+    background: transparent !important;
+    padding-top: 60px !important;
+    padding-bottom: 80px !important;
+}
+
+/* Bean Experience Flow */
+.bean-experience-section {
+    margin: 40px 20px !important; /* Floating island instead of full width */
+    border-radius: 40px;
+    box-shadow: 0 30px 60px rgba(0,0,0,0.15);
+    background-attachment: fixed; /* Parallax effect */
+    width: auto !important;
+}
+
+/* Menu Flow */
+.menu-wow-section {
+    background: transparent !important;
+    padding-top: 80px !important;
+    padding-bottom: 80px !important;
+}
+
+/* Reservation Flow */
+.reservation-flow {
+    margin: 60px 20px !important;
+    border-radius: 40px;
+    overflow: hidden;
+    box-shadow: 0 30px 60px rgba(0,0,0,0.15);
+    background: url('../img/bg.jpg') center center no-repeat;
+    background-size: cover;
+    background-attachment: fixed;
+    width: auto !important;
+}
+.reservation-flow .reservation {
+    background: rgba(51, 33, 29, 0.85); /* Dark overlay inside the rounded container */
+    backdrop-filter: blur(10px);
+    margin: 0 !important;
+    padding: 40px 0;
+}
+
+/* Testimonial Flow */
+.testimonial-flow {
+    background: transparent !important;
+    padding-top: 60px !important;
+    padding-bottom: 80px !important;
+}
+
+/* Footer Flow */
+.footer {
+    border-radius: 40px 40px 0 0;
+    margin-top: 0 !important;
+    background: #33211D !important;
+}

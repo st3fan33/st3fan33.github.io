@@ -1,6 +1,54 @@
 (function ($) {
     "use strict";
     
+    // ========================
+    // PRELOADER & CUSTOM CURSOR
+    // ========================
+    $(window).on('load', function() {
+        setTimeout(function() {
+            $('#preloader').css({
+                'opacity': '0',
+                'visibility': 'hidden'
+            });
+        }, 1500); // Show preloader for 1.5s
+    });
+
+    $(document).ready(function() {
+        const cursorDot = document.querySelector('.cursor-dot');
+        const cursorOutline = document.querySelector('.cursor-outline');
+
+        if (cursorDot && cursorOutline) {
+            window.addEventListener('mousemove', function(e) {
+                const posX = e.clientX;
+                const posY = e.clientY;
+
+                cursorDot.style.left = `${posX}px`;
+                cursorDot.style.top = `${posY}px`;
+
+                // Add a slight delay to the outline for a smooth effect
+                cursorOutline.animate({
+                    left: `${posX}px`,
+                    top: `${posY}px`
+                }, { duration: 500, fill: "forwards" });
+            });
+
+            // Add hover effect for links and buttons
+            $('a, button, .btn').on('mouseenter', function() {
+                if (cursorOutline) {
+                    cursorOutline.style.width = '60px';
+                    cursorOutline.style.height = '60px';
+                    cursorOutline.style.backgroundColor = 'rgba(218, 159, 91, 0.1)';
+                }
+            }).on('mouseleave', function() {
+                if (cursorOutline) {
+                    cursorOutline.style.width = '40px';
+                    cursorOutline.style.height = '40px';
+                    cursorOutline.style.backgroundColor = 'transparent';
+                }
+            });
+        }
+    });
+
     // ============= CONFIGURATION =============
     // Set to true to always trigger scroll animation (for testing)
     var DEBUG_MODE = false;
@@ -518,8 +566,8 @@
                 
                 // Check if bean overlaps with any dark background sections
                 if (!isOverDark) {
-                    // Only check specific full-width dark sections
-                    $('.page-header, #blog-carousel, .offer, .footer').each(function() {
+                    // Only check specific full-width dark sections and the horizontal scroll section
+                    $('.page-header, #blog-carousel, .offer, .footer, .horizontal-scroll-section').each(function() {
                         var sectionTop = $(this).offset().top;
                         var sectionBottom = sectionTop + $(this).outerHeight();
                         
@@ -576,7 +624,257 @@
     
     // Initialize beans after page load
     $(window).on('load', function() {
-        setTimeout(initFloatingBeans, 500);
+        // setTimeout(initFloatingBeans, 500); // Disabled to remove floating beans
+    });
+
+    // ========================
+    // GSAP SCROLL ANIMATIONS
+    // ========================
+    $(document).ready(function() {
+        if (typeof gsap !== 'undefined' && typeof ScrollTrigger !== 'undefined') {
+            gsap.registerPlugin(ScrollTrigger);
+
+            // Hero Section Parallax
+            gsap.to(".carousel-item img", {
+                yPercent: 20,
+                ease: "none",
+                scrollTrigger: {
+                    trigger: "#blog-carousel",
+                    start: "top top",
+                    end: "bottom top",
+                    scrub: true
+                }
+            });
+
+            // Fade Up Elements
+            const fadeUpElements = gsap.utils.toArray('.section-title, .about-text, .service-item, .menu-item, .reservation-form, .about-redesign .col-lg-6');
+            fadeUpElements.forEach(elem => {
+                gsap.fromTo(elem, 
+                    { y: 50, opacity: 0 },
+                    {
+                        y: 0,
+                        opacity: 1,
+                        duration: 1,
+                        ease: "power3.out",
+                        scrollTrigger: {
+                            trigger: elem,
+                            start: "top 85%",
+                            toggleActions: "play none none reverse"
+                        }
+                    }
+                );
+            });
+
+            // About Section Image Parallax
+            if (document.querySelector('.about-visuals')) {
+                gsap.to(".about-visuals .img-sub", {
+                    y: -30,
+                    ease: "none",
+                    scrollTrigger: {
+                        trigger: ".about-visuals",
+                        start: "top bottom",
+                        end: "bottom top",
+                        scrub: true
+                    }
+                });
+            }
+
+            // Staggered Menu Items
+            gsap.from(".menu-item", {
+                y: 50,
+                opacity: 0,
+                duration: 0.8,
+                stagger: 0.2,
+                ease: "power2.out",
+                scrollTrigger: {
+                    trigger: ".menu-item",
+                    start: "top 80%"
+                }
+            });
+
+            // Timeline Animation
+            const timelineItems = gsap.utils.toArray('.timeline-item');
+            if (timelineItems.length > 0) {
+                gsap.to(timelineItems, {
+                    x: 0,
+                    opacity: 1,
+                    duration: 0.8,
+                    stagger: 0.3,
+                    ease: "back.out(1.7)",
+                    scrollTrigger: {
+                        trigger: ".history-timeline",
+                        start: "top 80%",
+                        toggleActions: "play none none reverse"
+                    }
+                });
+            }
+
+            // Cinematic Accordion for Services
+            const accordionItems = document.querySelectorAll('.accordion-item');
+            
+            if (accordionItems.length > 0) {
+                accordionItems.forEach(item => {
+                    item.addEventListener('mouseenter', () => {
+                        // Remove active class from all items
+                        accordionItems.forEach(el => el.classList.remove('active'));
+                        // Add active class to hovered item
+                        item.classList.add('active');
+                    });
+                });
+            }
+        }
+    });
+
+    // ========================
+    // TEXT SPLIT & LIQUID EFFECT
+    // ========================
+    $(document).ready(function() {
+        // Split Text for Hero
+        const splitTextElements = document.querySelectorAll('.split-text, .split-text-main');
+        
+        splitTextElements.forEach(elem => {
+            const text = elem.innerText;
+            elem.innerHTML = '';
+            text.split('').forEach(char => {
+                const span = document.createElement('span');
+                span.innerText = char === ' ' ? '\u00A0' : char;
+                elem.appendChild(span);
+            });
+        });
+
+        // Animate Split Text after preloader
+        setTimeout(() => {
+            gsap.to('.split-text span', {
+                opacity: 1,
+                y: 0,
+                rotation: 0,
+                duration: 0.8,
+                stagger: 0.02,
+                ease: "back.out(1.5)"
+            });
+            
+            gsap.to('.split-text-main span', {
+                opacity: 1,
+                y: 0,
+                rotation: 0,
+                duration: 1,
+                stagger: 0.03,
+                ease: "back.out(1.5)",
+                delay: 0.3
+            });
+
+            gsap.fromTo('.fade-up-text', 
+                { y: 30, opacity: 0 },
+                { y: 0, opacity: 1, duration: 1, stagger: 0.2, ease: "power3.out", delay: 0.8 }
+            );
+        }, 1500); // Wait for preloader
+
+        // Liquid SVG Filter Animation
+        const turbulence = document.querySelector('#liquid feTurbulence');
+        if (turbulence) {
+            let frames = 0;
+            let rad = Math.PI / 180;
+            function animateFluid() {
+                frames += 0.5;
+                let bfx = 0.01;
+                let bfy = 0.01;
+                bfx += 0.005 * Math.cos(frames * rad);
+                bfy += 0.005 * Math.sin(frames * rad);
+                turbulence.setAttribute('baseFrequency', `${bfx} ${bfy}`);
+                requestAnimationFrame(animateFluid);
+            }
+            animateFluid();
+        }
+    });
+
+    // ========================
+    // MAGNETIC BUTTONS
+    // ========================
+    $(document).ready(function() {
+        const magnetics = document.querySelectorAll('.magnetic');
+        
+        magnetics.forEach((elem) => {
+            elem.addEventListener('mousemove', (e) => {
+                const pos = elem.getBoundingClientRect();
+                const x = e.clientX - pos.left - pos.width / 2;
+                const y = e.clientY - pos.top - pos.height / 2;
+                
+                gsap.to(elem, {
+                    x: x * 0.3,
+                    y: y * 0.3,
+                    duration: 0.5,
+                    ease: "power3.out"
+                });
+            });
+            
+            elem.addEventListener('mouseleave', () => {
+                gsap.to(elem, {
+                    x: 0,
+                    y: 0,
+                    duration: 0.5,
+                    ease: "elastic.out(1, 0.3)"
+                });
+            });
+        });
+    });
+
+    // ========================
+    // SMART WEATHER RECOMMENDATION
+    // ========================
+    $(document).ready(function() {
+        const weatherWidget = $('#weather-widget');
+        const weatherText = $('#weather-text');
+        const weatherIcon = $('.weather-icon i');
+        const closeBtn = $('#close-weather');
+
+        if (weatherWidget.length) {
+            // Close button functionality
+            closeBtn.on('click', function() {
+                weatherWidget.removeClass('show');
+            });
+
+            // Fetch location and weather
+            fetch('https://ipapi.co/json/')
+                .then(response => response.json())
+                .then(data => {
+                    const lat = data.latitude;
+                    const lon = data.longitude;
+                    const city = data.city;
+
+                    if (lat && lon) {
+                        fetch(`https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&current_weather=true`)
+                            .then(res => res.json())
+                            .then(weatherData => {
+                                const temp = Math.round(weatherData.current_weather.temperature);
+                                const isDay = weatherData.current_weather.is_day;
+                                
+                                let recommendation = "";
+                                let iconClass = "fas fa-cloud-sun";
+
+                                if (temp > 25) {
+                                    recommendation = `It's ${temp}°C in ${city}. Perfect weather for an Iced Latte! 🧊☕`;
+                                    iconClass = isDay ? "fas fa-sun" : "fas fa-moon";
+                                } else if (temp < 15) {
+                                    recommendation = `It's ${temp}°C in ${city}. Warm up with a hot Cappuccino! ☕🔥`;
+                                    iconClass = "fas fa-snowflake";
+                                } else {
+                                    recommendation = `It's ${temp}°C in ${city}. A great day for our Signature Blend! ☕✨`;
+                                    iconClass = isDay ? "fas fa-cloud-sun" : "fas fa-cloud-moon";
+                                }
+
+                                weatherText.text(recommendation);
+                                weatherIcon.attr('class', iconClass);
+
+                                // Show widget after a delay
+                                setTimeout(() => {
+                                    weatherWidget.addClass('show');
+                                }, 3000);
+                            })
+                            .catch(err => console.error("Weather fetch error:", err));
+                    }
+                })
+                .catch(err => console.error("Location fetch error:", err));
+        }
     });
 
 })(jQuery);
